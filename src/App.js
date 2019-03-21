@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Provider, connect } from "react-redux";
+import store from "./store";
+import "./App.css";
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({});
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    render() {
+        return <div>My page</div>;
+    }
 }
 
-export default App;
+const ConnectedRoot = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
+
+export default () => (
+    <Provider store={store}>
+        <ConnectedRoot />
+    </Provider>
+);
