@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 //import { reducer as formReducer } from 'redux-form';
-import info from "../duck/info";
+import notes from "../duck/notes";
 
 const rootReducer = combineReducers({
     router: routerReducer,
     // form: formReducer,
-    info
+    notes
 });
 export default rootReducer;

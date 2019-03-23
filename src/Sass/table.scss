@@ -1,0 +1,42 @@
+@import "./variables.scss";
+
+.head {
+    .id-col {
+        text-align: left !important;
+    }
+    * {
+        font-size: 0.9rem !important;
+        color: $text-headers-color !important;
+        font-weight: bolder !important;
+    }
+}
+.row {
+    &:hover {
+        background-color: $light-highlight;
+        .icon {
+            color: $text-white;
+        }
+        * {
+            color: $text-white;
+        }
+    }
+}
+.icon {
+    cursor: pointer;
+}
+.id-col {
+    width: 13% !important;
+    text-align: right !important;
+}
+.detail-col {
+    width: 15% !important;
+    text-align: center !important;
+}
+.edit-col {
+    width: 10% !important;
+    text-align: center !important;
+}
+.del-col {
+    width: 10% !important;
+    text-align: center !important;
+}

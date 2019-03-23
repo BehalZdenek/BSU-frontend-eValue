@@ -16,12 +16,12 @@ export const loadNotesList = data => {
 // ----- REDUCER -----
 const initialState = {};
 
-export default function info(state = initialState, action) {
+export default function notes(state = initialState, action) {
     switch (action.type) {
         case NOTES:
             return {
                 ...state,
-                data: action.data
+                allNotes: action.data
             };
         default:
             return state;

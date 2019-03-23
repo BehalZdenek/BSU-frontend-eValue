@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ListPage, ListDetailPage, NotFound } from "./Pages";
 import PropTypes from "prop-types";
-import "../Less/global.less";
+import "../Sass/global.scss";
 
 const mapStateToProps = state => ({
     ...state

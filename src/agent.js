@@ -63,7 +63,8 @@ const requests = {
 
 const NOTES = "/notes";
 const Notes = {
-    getNotes: () => requests.get(`${NOTES}`)
+    getNotes: () => requests.get(`${NOTES}`),
+    getNote: id => requests.get(`${NOTES}/${id}`)
 };
 
 export default {
