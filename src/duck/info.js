@@ -1,14 +1,13 @@
-//import createToast from '../helpers/createToast';
 // ----- ACTION -----
 
-export const DATA = "DATA";
+export const NOTES = "NOTES";
 
 // ----- ACTION CREATORS -----
 
-export const dataLoad = data => {
+export const loadNotesList = data => {
     return dispatch => {
         dispatch({
-            type: DATA,
+            type: NOTES,
             data
         });
     };
@@ -19,7 +18,7 @@ const initialState = {};
 
 export default function info(state = initialState, action) {
     switch (action.type) {
-        case DATA:
+        case NOTES:
             return {
                 ...state,
                 data: action.data

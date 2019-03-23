@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ListPage, ListDetailPage, NotFound } from "./Pages";
+import PropTypes from "prop-types";
 import "../Less/global.less";
 
 const mapStateToProps = state => ({
@@ -16,7 +17,7 @@ class Main extends React.Component {
     render() {
         return (
             <Router basename="/">
-                <div className="body">
+                <div>
                     <Switch>
                         <Route exact={true} path="/" component={ListPage} />
                         <Route exact={true} path="/main" component={ListPage} />
@@ -28,6 +29,24 @@ class Main extends React.Component {
         );
     }
 }
+
+Main.defaultProps = {
+    nav: {
+        active: true, // start with nav active
+        enabled: true, // start with nav disabled
+        responsive: "multiple"
+    }
+    //session: { name: 'guest' }
+};
+
+Main.propTypes = {
+    nav: PropTypes.shape({
+        active: PropTypes.bool,
+        enabled: PropTypes.bool,
+        responsive: PropTypes.string
+    })
+    //session: PropTypes.object.isRequired
+};
 
 export default connect(
     mapStateToProps,

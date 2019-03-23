@@ -4,7 +4,7 @@ import _superagent from "superagent";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-let API_ROOT = "http://private-9aad-note10.apiary-mock.com/";
+let API_ROOT = "http://private-9aad-note10.apiary-mock.com";
 
 const responseBody = res => res.body;
 
@@ -61,9 +61,9 @@ const requests = {
             .then(responseBody)
 };
 
-const NOTES = "/notices/";
+const NOTES = "/notes";
 const Notes = {
-    getNotices: () => requests.get(`${NOTES}`)
+    getNotes: () => requests.get(`${NOTES}`)
 };
 
 export default {
