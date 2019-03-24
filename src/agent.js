@@ -64,7 +64,10 @@ const requests = {
 const NOTES = "/notes";
 const Notes = {
     getNotes: () => requests.get(`${NOTES}`),
-    getNote: id => requests.get(`${NOTES}/${id}`)
+    getNote: id => requests.get(`${NOTES}/${id}`),
+    addNote: body => requests.post(`${NOTES}`, body),
+    deleteNote: id => requests.del(`${NOTES}/${id}`),
+    updateNote: (id, body) => requests.put(`${NOTES}/${id}`, body)
 };
 
 export default {

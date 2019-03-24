@@ -10,7 +10,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({});
-
+/*
+function withProps(Component, props) {
+    return function(matchProps) {
+        return <Component {...props} {...matchProps} />;
+    };
+}*/
 class Main extends React.Component {
     componentDidMount() {}
 
@@ -22,6 +27,10 @@ class Main extends React.Component {
                         <Route exact={true} path="/" component={ListPage} />
                         <Route exact={true} path="/main" component={ListPage} />
                         <Route exact={true} path="/main/detail" component={ListDetailPage} />
+                        <Route exact={true} path="/main/en" component={ListPage} />
+                        <Route exact={true} path="/main/detail/en" component={ListDetailPage} />
+                        <Route exact={true} path="/main/cz" component={ListPage} />
+                        <Route exact={true} path="/main/detail/cz" component={ListDetailPage} />
                         <Route component={NotFound} />
                     </Switch>
                 </div>

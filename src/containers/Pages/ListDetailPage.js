@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Paper } from "@material-ui/core";
 import agent from "../../agent";
+import { translation } from "../../translation";
 
 const mapStateToProps = state => ({
     ...state
@@ -25,17 +26,26 @@ class ListDetailPage extends React.Component {
     };
     state = { notice: {} };
     render() {
+        const { location } = this.props;
+        const currPath = location && location.pathname;
+        let localization = "";
+        if (currPath === "/main/detail/en") {
+            localization = "en";
+        } else {
+            localization = "cz";
+        }
+        const translationToUse = translation.localization[localization];
         return (
             <div className="content-wrapper">
                 <div className="page-header">
-                    <h1>Detail seznamu</h1>
+                    <h1>{translationToUse.detailPageHeadline}</h1>
                     <p
                         className="link"
                         onClick={e => {
                             this.handleGoBackClick(e);
                         }}
                     >
-                        Jít zpět
+                        {translationToUse.detailPageLink}
                     </p>
                 </div>
 

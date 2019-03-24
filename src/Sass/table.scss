@@ -11,19 +11,39 @@
     }
 }
 .row {
+    transition: 0.3s;
+    .icon {
+        cursor: pointer;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+        transition: 0.5s;
+    }
+    &.add-note {
+        cursor: pointer;
+        * {
+            cursor: pointer;
+        }
+    }
     &:hover {
-        background-color: $light-highlight;
+        background-color: $orange-highlight;
         .icon {
             color: $text-white;
+            width: 20px;
+            height: 20px;
+            padding: 5px;
+            transition: 0.4s;
+            &:hover {
+                background-color: $dark-highlight;
+            }
         }
         * {
             color: $text-white;
         }
     }
 }
-.icon {
-    cursor: pointer;
-}
+
 .id-col {
     width: 13% !important;
     text-align: right !important;
