@@ -2,7 +2,7 @@
 
 ### Úvodem
 
--Tato aplikace funguje na základě zobrazení tabulky na hlavní stránce. V tabulce je seznam poznámek a na posledním řádku je možnost přidání poznámky. Veškerá práce s poznámkami spočívá v ovládání tabulky (pro každou akci jsou tlačítka a v hlavičce tabulky je akce popsána).
+-   Tato aplikace funguje na základě zobrazení tabulky na hlavní stránce. V tabulce je seznam poznámek a na posledním řádku je možnost přidání poznámky. Veškerá práce s poznámkami spočívá v ovládání tabulky (pro každou akci jsou tlačítka a v hlavičce tabulky je akce popsána).
 
 -   V aplikaci je možné si přepnout český a anglický jazyk tím, že se do url na konec zadá "/en" nebo "/cz".
 
