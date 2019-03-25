@@ -20,8 +20,27 @@ class Main extends React.Component {
     componentDidMount() {}
 
     render() {
+        console.log("history", this.router);
         return (
-            <Router basename="/">
+            <Router basename="/" ref={router => (this.router = router)}>
+                <div className="languages-switch">
+                    <p
+                        className="link cz"
+                        onClick={() => {
+                            this.router.history.push("/main/cz");
+                        }}
+                    >
+                        CZ
+                    </p>
+                    <p
+                        className="link en"
+                        onClick={() => {
+                            this.router.history.push("/main/en");
+                        }}
+                    >
+                        EN
+                    </p>
+                </div>
                 <div>
                     <Switch>
                         <Route exact={true} path="/" component={ListPage} />
