@@ -28,7 +28,6 @@ class AddNote extends React.Component {
         let notesCopy = notes && notes.allNotes;
         const bodyToSend = Object.create({ title: this.state.noteToAdd }, {});
         agent.Notes.addNote(querystring.stringify(bodyToSend)).then(res => {
-            console.log("res", res);
             notesCopy.push(res);
             Promise.all([saveNotesToRedux(notesCopy)]).then(() => {
                 this.handleModalClose();

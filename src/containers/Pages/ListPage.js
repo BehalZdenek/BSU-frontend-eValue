@@ -80,7 +80,7 @@ class ListPage extends React.Component {
         if (allNotes) {
             return allNotes.map((row, index) => {
                 return (
-                    <TableRow key={`row-${row.id}`} className="row">
+                    <TableRow key={`row-${index}`} className="row">
                         <TableCell className="id-col">{row.id}</TableCell>
                         <TableCell className="note-col">{row.title}</TableCell>
                         <TableCell className="detail-col">
