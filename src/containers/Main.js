@@ -1,42 +1,39 @@
 import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ListPage, ListDetailPage, NotFound } from "./Pages";
+import { ListPage, ListDetailPage } from "./Pages";
 import PropTypes from "prop-types";
 import "../Sass/global.scss";
+import { changeLocalizationCZ, changeLocalizationEN } from "../duck/localization";
 
 const mapStateToProps = state => ({
     ...state
 });
 
-const mapDispatchToProps = dispatch => ({});
-/*
-function withProps(Component, props) {
-    return function(matchProps) {
-        return <Component {...props} {...matchProps} />;
-    };
-}*/
+const mapDispatchToProps = dispatch => ({
+    changeLocalizationToCZ: () => dispatch(changeLocalizationCZ()),
+    changeLocalizationToEN: () => dispatch(changeLocalizationEN())
+});
 class Main extends React.Component {
     componentDidMount() {}
-    state = { activelng: "cz" };
     render() {
+        const { localization, changeLocalizationToCZ, changeLocalizationToEN } = this.props;
+        const currLoc = localization.localization;
         return (
             <Router basename="/" ref={router => (this.router = router)}>
                 <div className="languages-switch">
                     <p
-                        className={this.state.activelng === "cz" ? "link cz active" : "link cz"}
+                        className={currLoc === "cz" ? "link cz active" : "link cz"}
                         onClick={() => {
-                            this.router.history.push("/main/cz");
-                            this.setState({ activelng: "cz" });
+                            Promise.all([changeLocalizationToCZ("cz")]);
                         }}
                     >
                         CZ
                     </p>
                     <p
-                        className={this.state.activelng === "en" ? "link en active" : "link en"}
+                        className={currLoc === "en" ? "link en active" : "link en"}
                         onClick={() => {
-                            this.router.history.push("/main/en");
-                            this.setState({ activelng: "en" });
+                            Promise.all([changeLocalizationToEN("en")]);
                         }}
                     >
                         EN
@@ -47,11 +44,7 @@ class Main extends React.Component {
                         <Route exact={true} path="/" component={ListPage} />
                         <Route exact={true} path="/main" component={ListPage} />
                         <Route exact={true} path="/main/detail" component={ListDetailPage} />
-                        <Route exact={true} path="/main/en" component={ListPage} />
-                        <Route exact={true} path="/main/detail/en" component={ListDetailPage} />
-                        <Route exact={true} path="/main/cz" component={ListPage} />
-                        <Route exact={true} path="/main/detail/cz" component={ListDetailPage} />
-                        <Route component={NotFound} />
+                        <Route component={ListPage} />
                     </Switch>
                 </div>
             </Router>

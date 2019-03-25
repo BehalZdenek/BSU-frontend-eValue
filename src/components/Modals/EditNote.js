@@ -1,5 +1,5 @@
 import React from "react";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import querystring from "query-string";
 import { TextField, Paper, FormGroup, Button } from "@material-ui/core";
@@ -14,6 +14,16 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     saveNotesToRedux: data => dispatch(loadNotesList(data))
 });
+
+const propTypes = {
+    closeModal: PropTypes.func,
+    editNote: PropTypes.object
+};
+const defaultProps = {
+    note: undefined,
+    closeModal: undefined,
+    editNote: undefined
+};
 
 class EditNote extends React.Component {
     componentDidMount() {
@@ -46,7 +56,8 @@ class EditNote extends React.Component {
     };
     render() {
         const { localization } = this.props;
-        const translationToUse = translation.localization[localization];
+        const currLang = localization && localization.localization;
+        const translationToUse = translation.localization[currLang];
         return (
             <div className="modal-wrapper">
                 <Paper className="modal-paper">
@@ -86,6 +97,9 @@ class EditNote extends React.Component {
         );
     }
 }
+
+EditNote.propTypes = propTypes;
+EditNote.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

@@ -26,15 +26,9 @@ class ListDetailPage extends React.Component {
     };
     state = { notice: {} };
     render() {
-        const { location } = this.props;
-        const currPath = location && location.pathname;
-        let localization = "";
-        if (currPath === "/main/detail/en") {
-            localization = "en";
-        } else {
-            localization = "cz";
-        }
-        const translationToUse = translation.localization[localization];
+        const { localization } = this.props;
+        const currLang = localization && localization.localization;
+        const translationToUse = translation.localization[currLang];
         return (
             <div className="content-wrapper">
                 <div className="page-header">

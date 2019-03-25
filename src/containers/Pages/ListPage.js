@@ -28,30 +28,21 @@ class ListPage extends React.Component {
         });
     }
     state = { addNote: false, editNote: false, confDelNote: false };
-    handleAddModalOpen = e => {
-        e.preventDefault();
-        this.setState({ addNote: true });
-    };
-    handleAddModalClose = () => {
-        this.setState({ addNote: false });
+    handleModalToggle = (modal, bool) => {
+        this.setState({ [modal]: bool });
     };
     handleConfDelModalOpen = (e, note) => {
         e.preventDefault();
         this.setState({ confDelNote: true, noteToDel: note });
     };
-    handleConfDelModalClose = () => {
-        this.setState({ confDelNote: false });
+    handleEditModalOpen = (e, noteToEdit) => {
+        e.preventDefault();
+        this.setState({ editNote: true, noteToEdit: noteToEdit });
     };
     handleInfoClick = (e, noteId) => {
         e.preventDefault();
-        const { history, location } = this.props;
-        switch (location.pathname) {
-            case "/main/en":
-                history.push("/main/detail/en", { noticeId: noteId });
-                break;
-            default:
-                history.push("/main/detail", { noticeId: noteId });
-        }
+        const { history } = this.props;
+        history.push("/main/detail", { noticeId: noteId });
     };
     handleNoteDelClick = (e, noteId) => {
         const { notes, saveNotesToRedux } = this.props;
@@ -59,21 +50,11 @@ class ListPage extends React.Component {
         e.preventDefault();
         agent.Notes.deleteNote(noteId).then(res => {
             //console.log("res", res);
-            for (let i = 0; i < notesCopy.length; i++) {
-                if (notesCopy[i].id === noteId) {
-                    notesCopy.splice(i, 1);
-                }
-            }
-            Promise.all([saveNotesToRedux(notesCopy)]);
+            const updated = notesCopy.filter(item => item.id !== noteId);
+            Promise.all([saveNotesToRedux(updated)]);
         });
     };
-    handleEditModalOpen = (e, noteToEdit) => {
-        e.preventDefault();
-        this.setState({ editNote: true, noteToEdit: noteToEdit });
-    };
-    handleEditModalClose = () => {
-        this.setState({ editNote: false });
-    };
+
     generateTableBody = () => {
         const { notes } = this.props;
         const allNotes = notes && notes.allNotes;
@@ -113,15 +94,9 @@ class ListPage extends React.Component {
         }
     };
     render() {
-        const { location } = this.props;
-        const currPath = location && location.pathname;
-        let localization = "";
-        if (currPath === "/main/en") {
-            localization = "en";
-        } else {
-            localization = "cz";
-        }
-        const translationToUse = translation.localization[localization];
+        const { localization } = this.props;
+        const currLang = localization && localization.localization;
+        const translationToUse = translation.localization[currLang];
 
         return (
             <div className="content-wrapper">
@@ -141,8 +116,8 @@ class ListPage extends React.Component {
                             {this.generateTableBody()}
                             <TableRow
                                 className="row add-note"
-                                onClick={e => {
-                                    this.handleAddModalOpen(e);
+                                onClick={() => {
+                                    this.handleModalToggle("addNote", true);
                                 }}
                             >
                                 <TableCell className="id-col">
@@ -155,17 +130,21 @@ class ListPage extends React.Component {
                         </TableBody>
                     </Table>
                 </Paper>
-                <Modal open={this.state.addNote} onClose={this.handleAddModalClose}>
+                <Modal open={this.state.addNote} onClose={() => this.handleModalToggle("addNote", false)}>
                     <DialogContent>
-                        <AddNote localization={localization} closeModal={this.handleAddModalClose} />
+                        <AddNote localization={localization} closeModal={() => this.handleModalToggle("addNote", false)} />
                     </DialogContent>
                 </Modal>
-                <Modal open={this.state.editNote} onClose={this.handleEditModalClose}>
+                <Modal open={this.state.editNote} onClose={() => this.handleModalToggle("editNote", false)}>
                     <DialogContent>
-                        <EditNote localization={localization} editNote={this.state.noteToEdit} closeModal={this.handleEditModalClose} />
+                        <EditNote
+                            localization={localization}
+                            editNote={this.state.noteToEdit}
+                            closeModal={() => this.handleModalToggle("editNote", false)}
+                        />
                     </DialogContent>
                 </Modal>
-                <Modal open={this.state.confDelNote} onClose={this.handleConfDelModalClose}>
+                <Modal open={this.state.confDelNote} onClose={() => this.handleModalToggle("confDelNote", false)}>
                     <DialogContent>
                         <ConfirmationDeleteModal
                             localization={localization}
@@ -173,7 +152,7 @@ class ListPage extends React.Component {
                             submitAction={(e, noteId) => {
                                 this.handleNoteDelClick(e, noteId);
                             }}
-                            closeModal={this.handleConfDelModalClose}
+                            closeModal={() => this.handleModalToggle("confDelNote", false)}
                         />
                     </DialogContent>
                 </Modal>

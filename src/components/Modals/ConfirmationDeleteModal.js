@@ -1,5 +1,5 @@
 import React from "react";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Paper, FormGroup, Button } from "@material-ui/core";
 import { translation } from "../../translation";
@@ -9,6 +9,17 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({});
+
+const propTypes = {
+    note: PropTypes.object,
+    closeModal: PropTypes.func,
+    submitAction: PropTypes.func
+};
+const defaultProps = {
+    note: undefined,
+    closeModal: undefined,
+    submitAction: undefined
+};
 
 class ConfirmationDeleteModal extends React.Component {
     componentDidMount() {}
@@ -24,7 +35,8 @@ class ConfirmationDeleteModal extends React.Component {
     };
     render() {
         const { localization, note } = this.props;
-        const translationToUse = translation.localization[localization];
+        const currLang = localization && localization.localization;
+        const translationToUse = translation.localization[currLang];
         return (
             <div className="modal-wrapper">
                 <Paper className="modal-paper">
@@ -57,6 +69,8 @@ class ConfirmationDeleteModal extends React.Component {
         );
     }
 }
+ConfirmationDeleteModal.propTypes = propTypes;
+ConfirmationDeleteModal.defaultProps = defaultProps;
 
 export default connect(
     mapStateToProps,

@@ -1,5 +1,4 @@
 import React from "react";
-//import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import querystring from "query-string";
 import { TextField, Paper, FormGroup, Button } from "@material-ui/core";
@@ -18,9 +17,9 @@ const mapDispatchToProps = dispatch => ({
 class AddNote extends React.Component {
     componentDidMount() {}
     state = { noteToAdd: "" };
-    handleModalClose = () => {
+    handleModalClose = e => {
         const { closeModal } = this.props;
-        closeModal();
+        closeModal(e);
     };
     handleSendClick = e => {
         e.preventDefault();
@@ -39,7 +38,8 @@ class AddNote extends React.Component {
     };
     render() {
         const { localization } = this.props;
-        const translationToUse = translation.localization[localization];
+        const currLang = localization && localization.localization;
+        const translationToUse = translation.localization[currLang];
         return (
             <div className="modal-wrapper">
                 <Paper className="modal-paper">
