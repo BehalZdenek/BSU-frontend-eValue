@@ -2,7 +2,7 @@ import React from "react";
 //import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Table, TableBody, TableHead, TableCell, TableRow, Paper, Modal, DialogContent } from "@material-ui/core";
-import { AddNote, EditNote } from "../../components/Modals";
+import { AddNote, EditNote, ConfirmationDeleteModal } from "../../components/Modals";
 import AddCircleOutlined from "@material-ui/icons/AddCircleOutlineOutlined";
 import Edit from "@material-ui/icons/EditOutlined";
 import Info from "@material-ui/icons/InfoOutlined";
@@ -27,13 +27,20 @@ class ListPage extends React.Component {
             Promise.all([saveNotesToRedux(res)]);
         });
     }
-    state = { addNote: false, editNote: false };
+    state = { addNote: false, editNote: false, confDelNote: false };
     handleAddModalOpen = e => {
         e.preventDefault();
         this.setState({ addNote: true });
     };
     handleAddModalClose = () => {
         this.setState({ addNote: false });
+    };
+    handleConfDelModalOpen = (e, note) => {
+        e.preventDefault();
+        this.setState({ confDelNote: true, noteToDel: note });
+    };
+    handleConfDelModalClose = () => {
+        this.setState({ confDelNote: false });
     };
     handleInfoClick = (e, noteId) => {
         e.preventDefault();
@@ -47,9 +54,17 @@ class ListPage extends React.Component {
         }
     };
     handleNoteDelClick = (e, noteId) => {
+        const { notes, saveNotesToRedux } = this.props;
+        let notesCopy = notes && notes.allNotes;
         e.preventDefault();
         agent.Notes.deleteNote(noteId).then(res => {
             //console.log("res", res);
+            for (let i = 0; i < notesCopy.length; i++) {
+                if (notesCopy[i].id === noteId) {
+                    notesCopy.splice(i, 1);
+                }
+            }
+            Promise.all([saveNotesToRedux(notesCopy)]);
         });
     };
     handleEditModalOpen = (e, noteToEdit) => {
@@ -88,7 +103,7 @@ class ListPage extends React.Component {
                             <Delete
                                 className="icon"
                                 onClick={e => {
-                                    this.handleNoteDelClick(e, row.id);
+                                    this.handleConfDelModalOpen(e, row);
                                 }}
                             />
                         </TableCell>
@@ -148,6 +163,18 @@ class ListPage extends React.Component {
                 <Modal open={this.state.editNote} onClose={this.handleEditModalClose}>
                     <DialogContent>
                         <EditNote localization={localization} editNote={this.state.noteToEdit} closeModal={this.handleEditModalClose} />
+                    </DialogContent>
+                </Modal>
+                <Modal open={this.state.confDelNote} onClose={this.handleConfDelModalClose}>
+                    <DialogContent>
+                        <ConfirmationDeleteModal
+                            localization={localization}
+                            note={this.state.noteToDel}
+                            submitAction={(e, noteId) => {
+                                this.handleNoteDelClick(e, noteId);
+                            }}
+                            closeModal={this.handleConfDelModalClose}
+                        />
                     </DialogContent>
                 </Modal>
             </div>

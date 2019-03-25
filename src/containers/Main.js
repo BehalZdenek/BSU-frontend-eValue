@@ -20,7 +20,6 @@ class Main extends React.Component {
     componentDidMount() {}
     state = { activelng: "cz" };
     render() {
-        console.log("history", this.router);
         return (
             <Router basename="/" ref={router => (this.router = router)}>
                 <div className="languages-switch">

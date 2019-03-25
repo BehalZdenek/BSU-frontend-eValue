@@ -21,6 +21,11 @@ const translation = {
                 headline: "Upravit poznámku",
                 editButton: "Editovat",
                 cancelButton: "Zrušit"
+            },
+            confirmationDelModal: {
+                headline: "Opravdu chcete smazat poznámku: ",
+                submitButton: "Potvrdit",
+                cancelButton: "Zrušit"
             }
         },
         en: {
@@ -43,6 +48,11 @@ const translation = {
             editModal: {
                 headline: "Edit note",
                 editButton: "Submit",
+                cancelButton: "Cancel"
+            },
+            confirmationDelModal: {
+                headline: "Do you really want to delete note: ",
+                submitButton: "Submit",
                 cancelButton: "Cancel"
             }
         }

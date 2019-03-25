@@ -54,6 +54,10 @@ body {
                 margin-left: 10px;
                 width: 30%;
             }
+            &.center {
+                margin-top: 25px;
+                justify-content: center;
+            }
         }
     }
 }
