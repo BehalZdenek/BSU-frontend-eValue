@@ -18,24 +18,26 @@ function withProps(Component, props) {
 }*/
 class Main extends React.Component {
     componentDidMount() {}
-
+    state = { activelng: "cz" };
     render() {
         console.log("history", this.router);
         return (
             <Router basename="/" ref={router => (this.router = router)}>
                 <div className="languages-switch">
                     <p
-                        className="link cz"
+                        className={this.state.activelng === "cz" ? "link cz active" : "link cz"}
                         onClick={() => {
                             this.router.history.push("/main/cz");
+                            this.setState({ activelng: "cz" });
                         }}
                     >
                         CZ
                     </p>
                     <p
-                        className="link en"
+                        className={this.state.activelng === "en" ? "link en active" : "link en"}
                         onClick={() => {
                             this.router.history.push("/main/en");
+                            this.setState({ activelng: "en" });
                         }}
                     >
                         EN
